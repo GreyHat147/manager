@@ -6,7 +6,7 @@ import { Card, CardSection, Input, Button } from './common';
 class LoginForm extends Component {
 
     onEmailChange(text) {
-        this.propos.emailChanged.bind(text);
+        this.props.emailChanged(text);
     }
 
     render() {
@@ -17,6 +17,7 @@ class LoginForm extends Component {
                         label="Email"
                         placeholder="email@gmail.com"
                         onChangeText={this.onEmailChange.bind(this)}
+                        value={this.props.email}
                     />
                 </CardSection>
                 <CardSection>
@@ -36,4 +37,9 @@ class LoginForm extends Component {
     }
 }
 
-export default connect(null, { emailChanged })(LoginForm);
+const mapStateToProps = state => {
+    return {
+        email: state.auth.email
+    };
+};
+export default connect(mapStateToProps, { emailChanged })(LoginForm);
